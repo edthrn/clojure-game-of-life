@@ -15,14 +15,11 @@
   alive-cells-in-neighborhood)
 
 (def random (java.util.Random.))
-(def width 20)
-(def height 20)
+(def width 50)
+(def height 50)
 (def alive true)
 (def dead false)
 (def refresh-rate 2)  ;; 2 frames/sec
-
-;; TODO: this implementation seems very inefficient
-;; Need to come up with something more clever.
 
 (defn -main [] (doall (iterate play (new-grid))))
 
@@ -42,11 +39,12 @@
   "
   ([] (vec (repeatedly width #(vec (generate-booleans height)))))
   ([old-grid]
+    (let [alive-neighbors-grid (alive-neighbors-matrix old-grid)]
     (vec (for [x (range width)]
       (vec (for [y (range height)]
               (cell-evolution
                 (get-in old-grid [x y])
-                (get-in (alive-neighbors-matrix old-grid) [x y]))))))))
+                (get-in alive-neighbors-grid [x y])))))))))
 
 (defn generate-booleans [n] (repeatedly n #(. random nextBoolean)))
 
