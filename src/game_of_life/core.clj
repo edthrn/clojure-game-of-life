@@ -40,10 +40,10 @@
   If an existing grid is given, returns the evolution based on Conway's rules.
   Otherwise, returns a randomly created grid.
   "
-  ([] (vec (repeatedly height #(vec (generate-booleans width)))))
+  ([] (vec (repeatedly width #(vec (generate-booleans height)))))
   ([old-grid]
-    (vec (for [y (range height)]
-      (vec (for [x (range width)]
+    (vec (for [x (range width)]
+      (vec (for [y (range height)]
               (cell-evolution
                 (get-in old-grid [x y])
                 (get-in (alive-neighbors-matrix old-grid) [x y]))))))))
@@ -54,8 +54,8 @@
   "Given a grid, return a matrix counting alive neighbors for each cell."
   [grid]
   (vec
-    (for [y (range height)]
-         (vec (for [x (range width)]
+    (for [x (range width)]
+         (vec (for [y (range height)]
                    (alive-cells-in-neighborhood (cell-moore-neighborhood grid x y)))))))
 
 (defn cell-moore-neighborhood
