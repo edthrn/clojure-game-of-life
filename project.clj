@@ -1,4 +1,4 @@
-(defproject game-of-life "0.1.0-SNAPSHOT"
+(defproject game-of-life "0.1.0"
   :description "A Clojure implementation of Conway's Game of Life."
   :url "http://github.com/edthrn/clojure-game-of-life"
   :license {:name "MIT License"
