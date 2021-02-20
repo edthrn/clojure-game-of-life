@@ -14,8 +14,8 @@
 (defn grid-repr
   "Get a string representation of the given grid."
   [grid]
-  (string/join "\n" (for [y (range height)]
-                         (string/join (for [x (range width)]
+  (string/join (for [x (range width)]
+                    (string/join "\n" (for [y (range height)]
                                            (cell-repr (get-in grid [x y])))))))
 
 (defn display [grid] (println (get-grid-repr grid) "\n"))
@@ -53,11 +53,9 @@
   Otherwise, returns a randomly created grid.
   "
   ([]
-  (into [] (repeatedly
-            width
-            (fn [] (into [] (repeatedly
-                             height
-                             (fn [] (rand-nth [alive dead]))))))))
+  (into [] (for [_ (range width)]
+                (into [] (for [_ (range height)]
+                                 (rand-nth [alive dead]))))))
   ([grid]
   (let [neighbors-grid (alive-neighbors-grid grid)]
     (into [] (for [x (range width)]
